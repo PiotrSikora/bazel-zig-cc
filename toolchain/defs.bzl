@@ -159,7 +159,7 @@ _VERSION = "0.10.0-dev.513+029844210"
 def register_toolchains(
         register = [],
         version = _VERSION,
-        url_format = _URL_FORMAT_JAKSTYS,
+        url_format = _URL_FORMAT_NIGHTLY,
         host_platform_sha256 = {}):
     """
         Download zig toolchain and register some.
