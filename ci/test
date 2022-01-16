@@ -24,13 +24,25 @@ _build() {
     >&2 echo
     >&2 echo "Testing $name and looking for '$glob':"
     >&2 echo
-    if _run _build_and_file "$@" //test/go:go | grep -q "$glob"; then
+    if _run _build_and_file "$@" //test/c:hello | grep -q "$glob"; then
         >&2 echo "OK $name"
-        return 0
     else
         >&2 echo "FAIL $name: glob does not match"
         return 1
     fi
+    if _run _build_and_file "$@" //test/cpp:hello | grep -q "$glob"; then
+        >&2 echo "OK $name"
+    else
+        >&2 echo "FAIL $name: glob does not match"
+        return 1
+    fi
+    if _run _build_and_file "$@" //test/go:go | grep -q "$glob"; then
+        >&2 echo "OK $name"
+    else
+        >&2 echo "FAIL $name: glob does not match"
+        return 1
+    fi
+    return 0
 }
 
 _build "Host" \

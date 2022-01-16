@@ -165,6 +165,26 @@ may apply to aarch64, but the author didn't find a need to test it (yet).
 
 # Testing
 
+## linux static C++ binary with musl
+
+```
+$ bazel build --platforms @zig_sdk//:linux_x86_64_platform --extra_toolchains @zig_sdk//:x86_64-linux-musl_toolchain //test/cpp:hello
+$ file bazel-bin/test/cpp/hello
+bazel-bin/test/cpp/hello: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, stripped
+$ bazel-bin/test/cpp/hello
+Hello, World!
+```
+
+## linux cross-compile C binary to linux/aarch64
+
+```
+$ bazel build --platforms @zig_sdk//:linux_aarch64_platform --extra_toolchains @zig_sdk//:aarch64-linux-musl_toolchain //test/c:hello
+$ file bazel-bin/test/c/hello
+bazel-bin/test/c/hello: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, not stripped
+$ qemu-aarch64-static bazel-bin/test/c/hello
+Hello, World!
+```
+
 ## linux cgo + glibc 2.28
 
 ```
